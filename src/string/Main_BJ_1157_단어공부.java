@@ -29,7 +29,7 @@ public class Main_BJ_1157_단어공부 {
 				System.out.println('?');
 				return;
 			}
-			else if (cnt[i] == max) {
+			else if (cnt[i] == max) { 
 				dup = true;
 				ans = (char)(i+'A');
 			}
