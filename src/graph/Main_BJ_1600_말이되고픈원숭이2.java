@@ -81,15 +81,13 @@ public class Main_BJ_1600_말이되고픈원숭이2 {
 				int ny = m.y + HD[d][1];
 				int cnt = m.cnt;
 				int kCnt = m.k +1;
-				
-				if (nx < 0 || ny < 0 || nx >= H || nx >= W || map[nx][ny] == 1 || visited[nx][ny][kCnt]) continue;
+				if (nx < 0 || ny < 0 || nx >= H || ny >= W || map[nx][ny] == 1 || visited[nx][ny][kCnt]) continue;
 				
 				visited[nx][ny][kCnt] = true;
 				queue.offer(new Monkey(nx, ny, kCnt, cnt+1));
 			}
 		}
-		
-		System.out.println(-1);
+				System.out.println(-1);
 		
 	}
 }
