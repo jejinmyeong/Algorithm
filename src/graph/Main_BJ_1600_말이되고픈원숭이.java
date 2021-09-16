@@ -44,7 +44,7 @@ public class Main_BJ_1600_말이되고픈원숭이 {
 		for (int i = 0 ;i < H ; i++) {
 			for (int  j = 0 ; j < W ; j++) {
 				for (int k = 0 ; k <= K ; k++) {
-					dp[i][j][k] = 99999999;
+					dp[i][j][k] = 999999999;
 				}
 			}
 		}
@@ -54,11 +54,12 @@ public class Main_BJ_1600_말이되고픈원숭이 {
 		}
 		
 		for (int k = 0 ; k <= K ; k++) {
-			for (int i = 0 ; i < H ; i++) {
-				for (int j = 0 ; j < W ; j++) {
-					if (map[i][j] == 1) continue;
-					// k가 0이면 인접된 영역으로만 이동
-					if (k != 0)
+			if (k != 0)
+				for (int i = 0 ; i < H ; i++) {
+					for (int j = 0 ; j < W ; j++) {
+						if (map[i][j] == 1) continue;
+						// k가 0이면 인접된 영역으로만 이동
+						
 						for (int hd = 0 ; hd < 8 ; hd++) {
 							int nx = i + HD[hd][0];
 							int ny = j + HD[hd][1];
@@ -68,36 +69,39 @@ public class Main_BJ_1600_말이되고픈원숭이 {
 							
 							dp[nx][ny][k] = Math.min(dp[nx][ny][k], dp[i][j][k-1]+1);
 						}
-					
-					// 말의 움직임으로 움직이지 못한 부분 채우기
+					}
+				}
+			for (int i = 0 ; i < H ; i++) {
+				for (int j = 0 ; j < W ; j++) {
 					for (int d = 0 ; d < 4 ;d++) {
 						int nx = i + D[d][0];
 						int ny = j + D[d][1];
-
+	
 						// 유효 범위 검사 map의 범위를 벗어 나는경우, 장애물로 막혀있는 경우
 						if (nx < 0 || ny < 0 || nx >= H || ny >= W || map[nx][ny] == 1) continue;
 						
-						dp[nx][ny][k] = Math.min(dp[nx][ny][k], dp[i][j][k]+1);
+						dp[nx][ny][k] = Math.min(dp[nx][ny][k], dp[i][j][k-1]+1);
 					}
 				}
 			}
 		}
-		for (int i = 0 ; i < H ; i++) {
-			for (int j = 0 ; j < W ; j++) {
-				System.out.print("[");
-				for (int k = 0 ; k <= K ; k++) {
-					System.out.print(dp[i][j][k]+" ");
-				}
-				System.out.print("]");
-			}
-			System.out.println();
-		}
+		
+//		for (int i = 0 ; i < H ; i++) {
+//			for (int j = 0 ; j < W ; j++) {
+//				System.out.print("[");
+//				for (int k = 0 ; k <= K ; k++) {
+//					System.out.print(dp[i][j][k]+" ");
+//				}
+//				System.out.print("]");
+//			}
+//			System.out.println();
+//		}
 		
 		int ans = dp[H-1][W-1][0];
 		for (int k = 1 ; k <= K ; k++) {
 			if (ans>dp[H-1][W-1][k]) ans = dp[H-1][W-1][k];
 		}
-		if (ans == 99999999) ans = -1;
+		if (ans == 999999999) ans = -1;
 		System.out.println(ans);
 		
 	}
